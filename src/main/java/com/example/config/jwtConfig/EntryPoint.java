@@ -1,4 +1,4 @@
-package com.example.application.config.jwtConfig;
+package com.example.config.jwtConfig;
 
 import java.io.IOException;
 import java.util.HashMap;

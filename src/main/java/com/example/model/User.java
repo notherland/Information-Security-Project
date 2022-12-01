@@ -1,4 +1,4 @@
-package com.example.application.model;
+package com.example.model;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package com.example.application.config.jwtConfig;
+package com.example.config.jwtConfig;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -6,7 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import com.example.application.service.UserDetailsImpl;
+import com.example.service.UserDetailsImpl;
 
 import java.util.Date;
 

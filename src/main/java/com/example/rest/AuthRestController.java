@@ -1,18 +1,22 @@
-package com.example.application.rest;
+package com.example.rest;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.example.application.pojo.JwtResponse;
-import com.example.application.pojo.LoginRequest;
-import com.example.application.pojo.MessageResponse;
-import com.example.application.pojo.SignupRequest;
-import com.example.application.config.jwtConfig.JwtUtils;
-import com.example.application.model.ERole;
-import com.example.application.model.Role;
-import com.example.application.model.User;
+import com.example.pojo.JwtResponse;
+import com.example.pojo.LoginRequest;
+import com.example.pojo.MessageResponse;
+import com.example.pojo.SignupRequest;
+import com.example.config.jwtConfig.JwtUtils;
+import com.example.model.ERole;
+import com.example.model.Role;
+import com.example.model.User;
+import com.example.repository.RoleRepository;
+import com.example.repository.UserRepository;
+import com.example.service.UserDetailsImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,13 +29,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.application.repository.RoleRepository;
-import com.example.application.repository.UserRepository;
-import com.example.application.service.UserDetailsImpl;
 
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Slf4j
 public class AuthRestController {
 
     @Autowired
@@ -61,6 +63,7 @@ public class AuthRestController {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        log.info(userDetails.getAuthorities().toString());
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
@@ -92,6 +95,7 @@ public class AuthRestController {
                 passwordEncoder.encode(signupRequest.getPassword()));
 
         Set<String> reqRoles = signupRequest.getRoles();
+
         Set<Role> roles = new HashSet<>();
 
         if (reqRoles == null) {
