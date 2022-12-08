@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Atack.iml" filepath="$PROJECT_DIR$/Atack.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AtackPy/AtackPy.iml" filepath="$PROJECT_DIR$/AtackPy/AtackPy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AtackPy2/AtackPy2.iml" filepath="$PROJECT_DIR$/AtackPy2/AtackPy2.iml" />
+    </modules>
+  </component>
+</project>
