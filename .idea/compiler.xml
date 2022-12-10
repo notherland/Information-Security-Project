@@ -7,13 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Information-Security-Project" />
+        <module name="AppServer" />
+        <module name="AuthServer" />
         <module name="Inforamation-Security" />
+        <module name="Information-Security-Project" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="AppServer" options="-parameters" />
+      <module name="AuthServer" options="-parameters" />
+      <module name="InfSec" options="" />
       <module name="Inforamation-Security" options="-parameters" />
       <module name="Information-Security-Project" options="-parameters --add-modules java.base" />
     </option>
